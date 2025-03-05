@@ -1,0 +1,71 @@
+server:
+  port: 6000
+
+api:
+  external-prefix: /api/users
+  internal-prefix: /internal/users
+
+spring:
+  application:
+    name: users-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://keycloak:8080/realms/skynasaTracking/protocol/openid-connect/certs
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:fletrax_tracking}
+    username: ${DB_USER:fletrax_tracking_user}
+    password: ${DB_PASSWORD:fletrax159}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    # enabled: false 
+    
+keycloak:
+  auth-server-url: http://keycloak:8080
+  realm: skynasaTracking
+  client-id: skynasa-tracking
+  admin-username: admin
+  admin-password: skynasa159
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    base-url: http://zipkin:9411
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans

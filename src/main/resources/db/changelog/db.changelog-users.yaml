@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users-table
+      author: Eng.AhmadRam
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: identify_number
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: phone_code
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: BOOLEAN
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  name: subscription_start_date
+                  type: DATE
+              - column:
+                  name: timezone
+                  type: VARCHAR(255)
+              - column:
+                  name: locale
+                  type: VARCHAR(255)
+              - column:
+                  name: parent_id
+                  type: UUID
+              - column:
+                  name: keycloak_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: true
+                    
+        - createIndex:
+            tableName: users
+            indexName: uss_idx_parent_id
+            columns:
+              - name: parent_id
+
+        - createIndex:
+            tableName: users
+            indexName: uss_idx_username
+            columns:
+              - name: username
+
+        - createIndex:
+            tableName: users
+            indexName: uss_idx_email
+            columns:
+              - name: email
