@@ -20,7 +20,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +54,7 @@ public class GenerateUserDataCommand {
     public String generateReservationData(@ShellOption(defaultValue = "10") int count) {
 
         Faker faker = new Faker();
-        List<UserDto> parents = new ArrayList<>();
+        // List<UserDto> parents = new ArrayList<>();
 
         Optional<User> user = userRepository.findByUsername("admin");
         UserDto userDto = user.map(UserDto::toDto).orElse(null);
